@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIR filter design using PSO</title>
+    <script>
+        MathJax = {
+            chtml: {
+                matchFontHeight: false
+            },
+            tex: {
+                inlineMath: [['$', '$']]
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/document.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script type="module" src="../src/pso-iir.js"></script>
+</head>
+
+<body>
+    <!--navigation bar-->
+    <nav class="navbar sticky-top navbar-expand-md navbar-light px-2" style="background-color:darkcyan;">
+        <a class="navbar-brand" href="http://www.dsplab.eee.dendai.ac.jp/"><img class="logo" src="../src/img/logo.png"
+                alt="DSPLab"></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#bs-navi"
+            aria-controls="bs-navi" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end mr-3 text-center" id="bs-navi">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html#top">
+                        <h4>Top</h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html#about-me">
+                        <h4>About me</h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html#skill">
+                        <h4>Skill</h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html#study">
+                        <h4>Study</h4>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html#contuct">
+                        <h4>Contuct</h4>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" style="background-color: mintcream;">
+        <!--Content Title-->
+        <h1 class="text-center title">&raquo;PSOを用いたIIRフィルタ設計 </h1>
+        <!--Main Content-->
+        <div class="container">
+            <h3>&raquo;概要</h3>
+            <p>ミニマックス基準に基づくIIR (Infinite Impulse Response)フィルタの設計問題に対し，PSO(Particle Swarm
+                Optimization)を用いてフィルタ設計を行います。縦続接続形IIRフィルタの回路は次のように表されます。</p>
+            <div style="text-align: center;">
+                <img src="../src/img/circit.svg" class="img-fluid" alt="Responsive image">
+            </div>
+            縦続接続形IIRフィルタの周波数特性は次式で表されます。
+            \[
+            H(\omega) = a_0 \cdot \frac{\displaystyle{\!\prod_{n_1=1}^{N_1}(1 +
+            a_{0,n_1}e^{-j\omega})}}{\displaystyle{\!\prod_{m_1=1}^{M_1}\!(1 + b_{0,m_1}e^{-j\omega})}} \cdot
+            \frac{\displaystyle{\!\prod_{n_2=1}^{N_2 / 2}\!(1 + \sum_{k=1}^{2} a_{k,n_2}e^{-jk\omega}
+            )}}{\displaystyle{\!\prod_{m_2=1}^{M_2/2}\!(1 + \sum_{k=1}^{2} b_{k,m_2}e^{-jk\omega})}}
+            \]
+            ここで，$\omega$は正規化角周波数，$N_1$，$N_2$は1次・2次区間の分子次数，$M_1$，$M_2$は1次・2次区間の分母次数，$a_0$はスケーリング係数，$a_{0,n_1}$,
+            $b_{0,m_1}$は1次区間のフィルタ係数，$a_{k,n_k}$, $b_{k,m_k}$, $k
+            \in \{1,2\}$は2次区間のフィルタ係数を表します。<br>
+            設計の目標となる所望特性は次式で定義します。
+            \[
+            D(\omega) = \begin{cases} e^{-j\omega \tau_d},& \omega \in [0, \omega_a]\\
+            \rm{don't\ care}, & \omega \in (\omega_p, \omega_s)\\
+            0,& \omega \in [\omega_s, \pi]
+            \end{cases}
+            \]
+            ここで，$\tau_d$は所望群遅延，$\omega_p$は通過域端角周波数，$\omega_s$は阻止域端角周波数を表します。<br>
+            本設計では，IIRフィルタの安定性と振幅隆起抑圧の条件の下で出来る限り$D(\omega)$(青線)と$H(\omega)$(緑線)の最大誤差(赤線)が小さくなるようなフィルタ係数を求めます。
+            <div style="text-align: center;">
+                <img src="../src/img/frequency_response.gif" class="img-fluid rounded" alt="Responsive image">
+            </div>
+            </p>
+            <h3>&raquo;設計条件</h3>
+            <p>設計するIIRフィルタの設計条件です。</p>
+            <p>分子次数 : $N_1 + N_2$ = <input type="number" id="numerator" value="12" min="1" max="30" step="1"> </p>
+            <p>分母次数 : $M_1 + M_2$ = <input type="number" id="denominator" value="8" min="1" max="30" step="1"> </p>
+            <p>通過域端周波数 : $\omega_p$ = <input type="number" id="passband" value="0.4" min="0.0" max="1.0" step="0.01">
+                $\pi$ </p>
+            <p>阻止域端周波数 : $\omega_s$ = <input type="number" id="stopband" value="0.5" min="0.0" max="1.0" step="0.01">
+                $\pi$ </p>
+            <p>所望群遅延 : $\tau_d$ = <input type="number" id="tau" value="10.0" min="0.0" max="50.0" step="0.01"> </p>
+            <p>許容最大振幅値 : $\delta_t$ = <input type="number" id="delt" value="1.0" min="1.0" max="10.0" step="0.01"></p>
+            <p>近似帯域分割数 : $S_a$ = <input type="number" id="diva" value="200" min="10" max="1000" step="10"></p>
+            <p>遷移域分割数 : $S_t$ = <input type="number" id="divt" value="50" min="10" max="1000" step="5"></p>
+
+            <h3>&raquo;PSOの設定条件</h3>
+            <p>設計手法であるPSOの設定条件です。</p>
+            <p>個体数 : $P$ = <input type="number" id="individual" value="20" min="0" max="1000" step="10"></p>
+            <p>最大探索回数 : $I_{max}$ = <input type="number" id="ite" value="2500" min="100" max="100000" step="100"></p>
+            <p>慣性重み係数 : $w$ = <input type="number" id="weight" value="0.8" min="0.0" max="1.0" step="0.1"></p>
+            <p>自己最良解に対する重み係数 : $c_1$ = <input type="number" id="pcoef" value="1.5" min="0.0" max="2.0" step="0.1"></p>
+            <p>群最良解に対する重み係数 : $c_2$ = <input type="number" id="gcoef" value="1.5" min="0.0" max="2.0" step="0.1"></p>
+            <p>スケーリング係数の初期範囲 : $[-s_{ini}, s_{ini}]$, $s_{ini}$ = <input type="number" id="iniscale" value="0.5"
+                    min="0.0" max="10.0" step="0.1"></p>
+            <p>分子係数の初期範囲 : $[-a_{ini}, a_{ini}]$, $a_{ini}$ = <input type="number" id="ininume" value="3.0" min="0.0"
+                    max="10.0" step="0.1">
+            </p>
+            <div style="text-align: center;">
+                <div class="alart alert-warning" role="alert">
+                    <h4 class="alert-heading"><strong>注意!</strong></h4>
+                    <p>個体数や最大探索回数を大きな値で設定すると計算負荷が大きくなります。</p>
+                </div>
+                <p><input type="button" value="Run" id="btnrun" onclick="update()"></p>
+            </div>
+            <h3>&raquo;設計結果</h3>
+            <h4>振幅特性</h4>
+            <canvas id="magResponse" width="640" hight="480">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+                    integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+                    crossorigin="anonymous">
+                    </script>
+            </canvas>
+            <h4>群遅延特性</h4>
+            <canvas id="gdResponse" width="640" hight="480">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+                    integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+                    crossorigin="anonymous">
+                    </script>
+            </canvas>
+            <div style="text-align: center;">
+                <p id="error"></p>
+                <p id="result-coef-scale"></p>
+                <p id="result-coef-nume"></p>
+                <p id="result-coef-deno"></p>
+            </div>
+        </div>
+    </main>
+
+    <!--footer-->
+    <footer>
+        <div class="container">
+            <h6>&copy; 2021 Yuta Harigae</h6>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

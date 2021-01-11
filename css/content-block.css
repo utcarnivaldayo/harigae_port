@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+.content-block-title {
+    height: 100vh;
+    background-color: mintcream;
+    text-align: center;
+}
+
+.content-block-w {
+    min-height: 100vh;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+.content-block-g {
+   min-height: 100vh;
+    background-color:mintcream;
+    text-align: center;
+}
+
+.title-block {
+    padding-top: 20vh;
+}
+
+.title-block img{
+   width: 30vh;
+   height: 30vh;
+}
+
+.content-title {
+    padding-top: 6rem;
+    padding-bottom: 1rem;
+}
