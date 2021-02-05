@@ -202,7 +202,7 @@
                                 ゲームプログラミング</a>」という本を参考に制作した自作ゲームエンジン，C++の勉強のために作成しました。
                             基本的な画像の表示・変形、テキストの表示、BGM、SEの再生、ゲームパッド対応など機能を備えています。
                             追加で自作した機能としては、画像のフェードイン・フェードアウト機能や、SEの多重再生機能を作成しました。</p>
-                        <p>特に、サウンドプログラミングの勉強は現在の研究テーマを選択するきっかけとなりました。</p>
+                        <p>特に、サウンドプログラミングの勉強は現在の研究テーマを選択するきっかけとなりました。(素材はtakanariさん提供)</p>
                         <p>使用ツール: Visual C++, DirextX9, XAudio2, Windows API</p>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                         <img src="./src/img/demomapedita.gif" class="card-img-top" alt="...">
                         趣味のゲーム制作で、マップのアイデアを共有するために作成したツール。
                         右のマップタイル一覧で選択を行い、左のエディタにクリックして設置するだけの簡単なマップエディタです。
-                        3層のレイヤーに対応。
+                        3層のレイヤーに対応。(マップタイルはRPGツクールの素材)
                         <p>使用ツール: Visual C++, <a href="https://dxlib.xsrv.jp/">DXライブラリ</a></p>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                     </div>
                     <div class="modal-body">
                         <h1 class="text-center display-3"><b>dsplab:: library</b></h1>
-                        <p>研究用に作成した、ディジタル信号処理の自作ライブラリです。wavファイルおよびマルチチャンネルのバイナリデータの読み書き、FIRフィルタ、IIRフィルタの機能を提供します。また、メタヒューリスティクス手法としてParticle
+                        <p>研究用に作成した、ディジタル信号処理の自作ライブラリです。wavファイルおよびマルチチャンネルのバイナリデータの読み書き、ディジタルフィルタの機能を提供します。また、大域的最適化のソルバとしてParticle
                             Swarm Optimization、Jaya Algorithm、Cuckoo Searchのクラス提供します。</p>
                         <p>使用ツール: C++</p>
                     </div>
@@ -299,7 +299,8 @@
                         <img src="./src/img/wasm.svg" class="card-img-top" alt="...">
                         Webアプリに演算負荷の大きい処理を実装するため技術であるWebAssemblyを利用して作成しました。
                         ロジックについてはRustで記述し、WebAssemblyファイルへの変換を行い、JavaScriptからWebAssemblyの関数を呼んでいます。
-                        内部では数十次の連立方程式を繰り返し解いていますが、Web上で高速な設計を実現しています。
+                        WebAssemblyはネイティブ環境と同等の速度で実行可能であるため、非常に高速です。
+                        内部では数十次の連立方程式を繰り返し解いていますが、ブラウザ上で高速な設計を実現しています。
                         <div style="text-align: center;">
                             <a href="https://utcarnivaldayo.github.io/remez/"
                                 class="btn btn-primary text-center">&raquo;実際にためしてみる</a>
