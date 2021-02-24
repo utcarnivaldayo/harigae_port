@@ -69,7 +69,7 @@
             <div class="container-fluid p-5">
                 <div class="row">
                     <div class="col-lg-6 pt-4 pb-4">
-                        <img src="./src/img/icon-raityo.png" class="img-thumbnail rounded shadow icon-size"
+                        <img src="./src/img/speaker256.gif" class="img-thumbnail rounded shadow icon-size"
                             alt="icon-raityo">
                     </div>
                     <div class="col-lg-6">
@@ -191,7 +191,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultALabel>ゲームエンジンの制作</h5>
+                        <h5 class="modal-title" id="resultALabel">ゲームエンジンの制作</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -213,7 +213,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultBLabel>簡易RPGマップエディタ</h5>
+                        <h5 class="modal-title" id="resultBLabel">簡易RPGマップエディタ</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -233,7 +233,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultCLabel>IIRフィルタの安定性領域の可視化</h5>
+                        <h5 class="modal-title" id="resultCLabel">IIRフィルタの安定性領域の可視化</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -251,7 +251,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultDLabel>信号処理の自作ライブラリ</h5>
+                        <h5 class="modal-title" id="resultDLabel">信号処理の自作ライブラリ</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -270,15 +270,14 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultELabel>とあるVtuberの非公式ファンサイト</h5>
+                        <h5 class="modal-title" id="resultELabel">とあるVtuberの非公式ファンサイト</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <img src="./src/img/mozange.png" class="card-img-top" alt="...">
-                        <p>WebフロントエンドであるHTML、CSS、JavaScriptの勉強のため作成した、とあるVtuberの非公式ファンサイトです。リファクタリングとしてBootstrapを用いたバージョンやデプロイやサイトの運営を見据えたDjangoを用いたバージョンも作成しました。
-                        </p>
+                        <p>WebフロントエンドであるHTML、CSS、JavaScriptの勉強のため作成した、とあるVtuberの非公式ファンサイトです。リファクタリングとしてBootstrapを用いたバージョンやデプロイやサイトの運営を見据えたDjangoを用いたバージョンも作成しました。(takanariさんと共同作成)</p>
                         <p>使用ツール: HTML, CSS, Django, Bootstrap</p>
                     </div>
                 </div>
@@ -289,7 +288,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id=resultFLabel>FIRフィルタ設計(Webアプリ)</h5>
+                        <h5 class="modal-title" id="resultFLabel">FIRフィルタ設計(Webアプリ)</h5>
                         <button type="button" class="close text" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -302,9 +301,7 @@
                         WebAssemblyはネイティブ環境と同等の速度で実行可能であるため、非常に高速です。
                         内部では数十次の連立方程式を繰り返し解いていますが、ブラウザ上で高速な設計を実現しています。
                         <div style="text-align: center;">
-                            <a href="https://utcarnivaldayo.github.io/remez/"
-                                class="btn btn-primary text-center">&raquo;実際にためしてみる</a>
-                            </p>
+                            <a href="https://utcarnivaldayo.github.io/remez/" class="btn btn-primary text-center">&raquo;実際にためしてみる</a>
                         </div>
                         <p>使用ツール: Rust, wasm-bindgen, WebAssembly, HTML, JavaScript, Chart.js</p>
                     </div>
@@ -318,9 +315,47 @@
             <p class="text-center">研究について</p>
             <div class="container">
                 <div class="row">
+                    <div class="col-md-6 col-xl-4" style="text-align: center;">
+                        <div class="container m-3">
+                            <figure class="figure">
+                                <img src="./src/img/digitalfilter.png" class="img-thumbnail rounded shadow"
+                                    >
+                                <figcaption class="figure-caption">ディジタルフィルタとは?</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4" style="text-align: center;">
+                        <div class="container m-3">
+                            <figure class="figure">
+                                <img src="./src/img/input.png" class="img-thumbnail rounded shadow"
+                                    style="height: 240px;">
+                                <figcaption class="figure-caption">ノイズが重畳した音声</figcaption>
+                                <audio controls>
+                                    <source src="./src/audio/input.wav">
+                                </audio>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4" style="text-align: center;">
+                        <div class="container m-3">
+                            <figure class="figure">
+                                <img src="./src/img/output.png" class="img-thumbnail rounded shadow"
+                                    style="height: 240px;">
+                                <figcaption class="figure-caption">フィルタリングされた音声</figcaption>
+                                <audio controls>
+                                    <source src="./src/audio/output.wav">
+                                </audio>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
                     <div class="col-lg-6" style="text-align: start;">
                         <p>私の研究はディジタルフィルタの最適な設計手法を開発するという研究をしています。</p>
-                        <p>ディジタルフィルタは信号から欲しい情報だけを取り出すことが出来る回路で、音響や音声、通信、医療などの幅広い分野で用いられています。ウィズコロナの時代では、非接触式の機器の普及により信号処理の基盤を支えるディジタルフィルタはさらに重要となると考えられます。
+                        <p>ディジタルフィルタは信号から欲しい情報だけを取り出すことが出来る回路で、音響や音声、通信、医療などの幅広い分野で用いられています。また、回路といってもその実体はプログラムであることが大半です。
+                            ウィズコロナの時代では、非接触式の機器の普及などにより信号処理の基盤を支えるディジタルフィルタは今後さらに重要となると考えられます。
                         </p>
                         <p>特に、ディジタルフィルタの分類の中でもIIR(Infinite Impulse
                             Response)フィルタと呼ばれるディジタルフィルタは少ない演算量で優れた特性をもつという利点があります。</p>
